@@ -1,5 +1,6 @@
 import random
 import PySimpleGUI as sg
+from anytree import Node, RenderTree
 attributes={
     "Appearance" : "APPE", 
     "Traits" : "TRAI", 
@@ -13,67 +14,78 @@ attributes={
     "Situation" : "SITU", 
     "Motivations" : "MOTI"
     }
-character = {
-    "NAME" : "",
-    "APPE" : "",
-    "TRAI" : "",
-    "WEAR" : "",
-    "GEAR" : "",
-    "SPEA" : "",
-    "MENT" : "",
-    "OCCU" : "",
-    "SKIL" : "",
-    "RELA" : "",
-    "SITU" : "",
-    "MOTI" : ""
-    }
+
+CATnip = Node("NAME",parent=None)
+for i in attributes.values():
+  Node(i, parent=CATnip)
 
 choices=list(attributes.keys())
 sg.SetOptions(text_element_background_color='#6D7993', button_color=("#030314", "#6D7993"), background_color="#9099A2",font=("Helvetica", 20,))
-
 
 catnip_column = [[sg.Text('Entity Name:'), sg.InputText(size = (20, 1), do_not_clear=True, key = "_NAME_"),
 
 sg.Text("Entity Attribute"), sg.InputCombo(choices,size = (20, 1), key = "_ATTRIBUTE_")],
 [sg.Text("Attribute Trait (seperate with a '/')"), sg.InputText(size = (20, 1), do_not_clear=True, key = "_TRAIT_"),
 sg.Text("Trait Tags (seperate with a '/')"), sg.InputText(size = (20, 1), do_not_clear=True, key = "_TAGS_")],
-                 [sg.Multiline("CAT<NIP> to appear here", size=(80,5), key = "_OUTPUT_", do_not_clear=True)],
-                 [sg.Button("CATNIP!"),sg.Button("RESET"),sg.Button("SAVE EDIT")]]
+                 [sg.Multiline("CAT<nip> to appear here", size=(80,15), key = "_OUTPUT_", do_not_clear=True)],
+                 [sg.Button("CATnip!"),sg.Button("RESET")]]
 
 layout = [[sg.Column(catnip_column, background_color="#6D7993")]]
   
-window = sg.Window('CAT<NIP> Generator').Layout(layout)
+window = sg.Window('CAT<nip> Generator').Layout(layout)
 
 
-first=1
-output = "["
+output=""
 while True: 
     event, values = window.Read()
 #    print(event)
 #    print(values)
     if event is None or event == 'Exit':
         break
-    if event == "CATNIP!" and values["_NAME_"] and values["_ATTRIBUTE_"]:
+    if event == "CATnip!" and values["_NAME_"] and values["_ATTRIBUTE_"]:
         try:
-            if first:
-                output = output+f'NAME<{values["_NAME_"]}>:{values["_NAME_"]}<first>;\n'
-                first=0
-            output = output+f'{attributes[values["_ATTRIBUTE_"]]}<{values["_NAME_"]}>:{values["_TRAIT_"]}<{values["_TAGS_"]}>.]'
-            output = output.replace( '<>','')
+            output=""
+
+            for pre, fill, node in RenderTree(CATnip):
+                if node.name==attributes[values["_ATTRIBUTE_"]] and values["_TRAIT_"] not in str(node.children):
+                    Node(values["_TRAIT_"],parent=node)
+
+
+            for pre, fill, node in RenderTree(CATnip):
+                if node.name==values["_TRAIT_"]:
+                    Node(values["_TAGS_"],parent=node)
+
+           #Start of Output Logic
+            for pre, fill, node in RenderTree(CATnip):
+                if node.parent==CATnip:
+                    output=output+("%s%s%s%s%s" %  ("$$$",node.name,'<',values["_NAME_"],'>'))
+                elif node.parent in CATnip.children:
+                    output=output+("%s%s" %  ("/",node.name))
+                elif node.is_root==True:
+                    output=output+("%s%s%s%s%s" %  ("[",node.name,'<',values["_NAME_"],'>'))
+                else:
+                    output=output+("%s%s%s" %  ("<",node.name,'>'))
+
+            output=output.replace(values["_NAME_"]+">/",values["_NAME_"]+'>:')
+            output=output.replace("$$$",';\n')
+            output=output.replace("><",'/')
+            output=output.replace("<>",'')
+            thelist=output.split('\n')
+            output=""
+            for item in thelist:
+                if len(item)>len(values["_NAME_"])+7:
+                    output=output+'\n'+item
+            output=output[1:-1]+'.]'
             window.FindElement('_OUTPUT_').Update(output)
-            output=output[:-2]
-            output = output+';\n'
+            print(RenderTree(CATnip))
+
         except:
             pass
     if event == "RESET" :
         output = ""
+        CATnip = Node("NAME",parent=None)
+        for i in attributes.values():
+            Node(i, parent=CATnip)
         window.FindElement('_OUTPUT_').Update(output)
-        output = "["
-    if event == "SAVE EDIT" :
-        output = values["_OUTPUT_"]
-        window.FindElement('_OUTPUT_').Update(output)
-        output=output[:-3]
-        output = output+';\n'
-      
 
 window.Close()
