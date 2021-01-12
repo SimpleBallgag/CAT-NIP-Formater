@@ -6,13 +6,14 @@ This is a CAT&lt;nip> formating tool for AI Dungeon. This formating method was c
 ## What is CAT&lt;nip>
 CAT&lt;nip> is a code format for entities in AI Dungeon. It allows AI dungeon to "rememeber" things about a character with greater accuracy. Below is a sample breakdown of CAT&lt;nip>.
 
-![cumpire](img/CatNipTree.jpg)
+![tree](img/CatNipTree.jpg)
 ## WIP
 This code is a work in progress
 
 ## How to use it
-Fill in the blanks with the information you want to convert into the CATNIP format, example below
-![cumpire](img/cumpire.jpg)
+Fill in the blanks with the information you want to convert into the CATNIP format, example below.
+
+![example](img/example.jpg)
 
 
 ## Features to add
