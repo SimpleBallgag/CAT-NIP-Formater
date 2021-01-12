@@ -13,7 +13,7 @@ This code is a work in progress
 ## How to use it
 Fill in the blanks with the information you want to convert into the CATNIP format, example below.
 
-![example](img/example.jpg)
+![example](img/Example.jpg)
 
 
 ## Features to add
