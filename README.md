@@ -1,4 +1,4 @@
-# CAT&ltnip> Formater
+# CAT'<nip>' Formater
 
 This is a CAT &lt nip> formating tool for AI Dungeon. This formating method was created by Curious Nekomimi. 
 
