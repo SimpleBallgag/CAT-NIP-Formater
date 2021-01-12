@@ -1,6 +1,6 @@
 # CAT&ltnip> Formater
 
-This is a CAT&ltnip> formating tool for AI Dungeon. This formating method was created by Curious Nekomimi. 
+This is a CAT &lt nip> formating tool for AI Dungeon. This formating method was created by Curious Nekomimi. 
 
 
 ## What is CAT&ltnip>
