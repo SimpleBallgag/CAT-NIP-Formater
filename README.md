@@ -18,10 +18,8 @@ Fill in the blanks with the information you want to convert into the CATNIP form
 
 ## Features to add
 
-### Expand the potential inputs
-Currently the formater only supports a limited number of inputs. Only one TRAIT can be supported per line, but traits can support multiple tags. 
 ### Add catches for bad data
-
-### POLISH IT UP
-
+Certain types of repeated data will trip up the formater, this needs to be corrected. 
+### Correct some small issues with the NAME attribute
+The NAME attribute exists but needs to be editable by the user, in its current state it is not. 
 ### Export to apk
