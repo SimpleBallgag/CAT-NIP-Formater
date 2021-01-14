@@ -20,6 +20,8 @@ Fill in the blanks with the information you want to convert into the CATNIP form
 
 ### Add catches for bad data
 Certain types of repeated data will trip up the formater, this needs to be corrected. 
+### Currently data can not be changed once entered
+This is a very usuful feature to add!!
 ### Correct some small issues with the NAME attribute
 The NAME attribute exists but needs to be editable by the user, in its current state it is not. 
 ### Export to apk

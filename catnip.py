@@ -24,11 +24,11 @@ sg.SetOptions(text_element_background_color='#6D7993', button_color=("#030314", 
 
 catnip_column = [[sg.Text('Entity Name:'), sg.InputText(size = (20, 1), do_not_clear=True, key = "_NAME_"),
 
-sg.Text("Entity Attribute"), sg.InputCombo(choices,size = (20, 1), key = "_ATTRIBUTE_")],
+sg.Text("Entity Attribute"), sg.InputCombo(choices,size = (20, 1), key = "_ATTRIBUTE_"),sg.Text("Insert..."),sg.Button("CAT<nip>")],
 [sg.Text("Attribute Trait (seperate with a '/')"), sg.InputText(size = (20, 1), do_not_clear=True, key = "_TRAIT_"),
 sg.Text("Trait Tags (seperate with a '/')"), sg.InputText(size = (20, 1), do_not_clear=True, key = "_TAGS_")],
                  [sg.Multiline("CAT<nip> to appear here", size=(80,15), key = "_OUTPUT_", do_not_clear=True)],
-                 [sg.Button("CATnip!"),sg.Button("RESET")]]
+                 [sg.Button("RESET")]]
 
 layout = [[sg.Column(catnip_column, background_color="#6D7993")]]
   
@@ -42,7 +42,7 @@ while True:
 #    print(values)
     if event is None or event == 'Exit':
         break
-    if event == "CATnip!" and values["_NAME_"] and values["_ATTRIBUTE_"]:
+    if event == "CAT<nip>" and values["_NAME_"] and values["_ATTRIBUTE_"]:
         try:
             output=""
 
